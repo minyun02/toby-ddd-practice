@@ -25,7 +25,7 @@ class MemberTest {
             }
         };
 
-        member = Member.create("min@splearn.com", "min", "secret", passwordEncoder);
+        member = Member.create(new MemberCreateRuest("min@splearn.com", "min", "secret"), passwordEncoder);
     }
 
     @Test
