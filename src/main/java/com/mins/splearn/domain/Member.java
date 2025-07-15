@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.ToString;
 
 import java.util.Objects;
+import java.util.regex.Pattern;
 
 import static java.util.Objects.requireNonNull;
 import static org.springframework.util.Assert.state;
@@ -11,7 +12,7 @@ import static org.springframework.util.Assert.state;
 @Getter
 @ToString
 public class Member {
-    private String email;
+    private Email email;
 
     private String nickname;
 
@@ -45,7 +46,7 @@ public class Member {
 
         Member member = new Member();
 
-        member.email = requireNonNull(createRuest.email());
+        member.email = new Email(createRuest.email());
         member.nickname = requireNonNull(createRuest.nickname());
         member.passwordHash = requireNonNull(passwordEncoder.encode(createRuest.password()));
 
