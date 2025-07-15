@@ -3,6 +3,8 @@ package com.mins.splearn.domain;
 import lombok.Getter;
 import lombok.ToString;
 
+import java.util.Objects;
+
 import static org.springframework.util.Assert.state;
 
 @Getter
@@ -57,10 +59,14 @@ public class Member {
     }
 
     public void changeNickname(String nickname) {
-        this.nickname = nickname;
+        this.nickname = Objects.requireNonNull(nickname);
     }
 
     public void changePassword(String password,  PasswordEncoder passwordEncoder) {
-        this.passwordHash = passwordEncoder.encode(password);
+        this.passwordHash = passwordEncoder.encode(Objects.requireNonNull(password));
+    }
+
+    public boolean isActive() {
+        return this.status == MemberStatus.ACTIVE;
     }
 }
