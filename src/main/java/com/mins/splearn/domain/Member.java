@@ -3,9 +3,6 @@ package com.mins.splearn.domain;
 import lombok.Getter;
 import lombok.ToString;
 
-import java.util.Objects;
-import java.util.regex.Pattern;
-
 import static java.util.Objects.requireNonNull;
 import static org.springframework.util.Assert.state;
 
@@ -29,7 +26,7 @@ public class Member {
     3. 외부에 도메인 서비스 같은 걸 주입하는 기능이 필요할 때 사용
      */
 //    public static Member create(String email, String nickname, String passwordHash, PasswordEncoder passwordEncoder) {
-    public static Member create(MemberCreateRuest createRuest, PasswordEncoder passwordEncoder) {
+    public static Member register(MemberRegisterRequest registerRuest, PasswordEncoder passwordEncoder) {
         /*
         파라미터가 String이 여러개 있는 상황에서 이 정적 팩토리 메서드를 호출하는 쪽에서는 파라미터의 순서를 바꿔서 넣은 경우가 많을거다.
         이런 경우, Builder 패턴을 사용해서 해결할 수 있지만 한계도 있다.
@@ -46,9 +43,9 @@ public class Member {
 
         Member member = new Member();
 
-        member.email = new Email(createRuest.email());
-        member.nickname = requireNonNull(createRuest.nickname());
-        member.passwordHash = requireNonNull(passwordEncoder.encode(createRuest.password()));
+        member.email = new Email(registerRuest.email());
+        member.nickname = requireNonNull(registerRuest.nickname());
+        member.passwordHash = requireNonNull(passwordEncoder.encode(registerRuest.password()));
 
         member.status = MemberStatus.PENDING;
 

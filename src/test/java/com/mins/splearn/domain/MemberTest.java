@@ -3,7 +3,6 @@ package com.mins.splearn.domain;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.assertj.core.api.Assertions.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
@@ -25,11 +24,11 @@ class MemberTest {
             }
         };
 
-        member = Member.create(new MemberCreateRuest("min@splearn.com", "min", "secret"), passwordEncoder);
+        member = Member.register(new MemberRegisterRequest("min@splearn.com", "min", "secret"), passwordEncoder);
     }
 
     @Test
-    void createMember() {
+    void registerMember() {
         assertThat(member.getStatus()).isEqualTo(MemberStatus.PENDING);
     }
 
@@ -115,8 +114,8 @@ class MemberTest {
 
     @Test
     void invalidEmail() {
-        assertThatThrownBy(() ->Member.create(new MemberCreateRuest("invalid", "min", "secret"), passwordEncoder)).isInstanceOf(IllegalArgumentException.class);
+        assertThatThrownBy(() ->Member.register(new MemberRegisterRequest("invalid", "min", "secret"), passwordEncoder)).isInstanceOf(IllegalArgumentException.class);
 
-        Member.create(new MemberCreateRuest("www5981@naver.com", "min", "secret"), passwordEncoder);
+        Member.register(new MemberRegisterRequest("www5981@naver.com", "min", "secret"), passwordEncoder);
     }
 }
