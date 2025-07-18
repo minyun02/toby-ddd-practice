@@ -1,5 +1,8 @@
 package com.mins.splearn.domain;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public interface PasswordEncoder {
     String encode(String password);
 
